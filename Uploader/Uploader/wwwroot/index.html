@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <meta charset="utf-8" />
+  <style>
+    #progress
+    {
+      padding: 20px 50px;
+      margin: 10px;
+      border: solid 1px;
+    }
+
+      #progress .box
+      {
+        border: solid 2px darkblue;
+        border-radius: 5px;
+        height: 25px;
+      }
+
+      #progress .bar
+      {
+        background-color: deepskyblue;
+        color: white;
+        text-align: right;
+        height: 100%;
+        width: 0%;
+      }
+  </style>
+
+</head>
+<body>
+  <form>
+    <input type="file" id="file" />
+    <input type="button" onclick="start()" value="Start" />
+    <input type="button" onclick="stop()" value="Stop" />
+    <input type="text" id="token" />
+  </form>
+  <script src="upload.js"></script>
+  <script>
+
+    function start() {
+      if (window["instance"] == null) {
+        instance = new uploader(document.getElementById("file").files[0]);
+
+        instance.onerror = function (data) {
+          window.setTimeout(function () { instance.start(); }, 1000);
+        }
+
+
+        instance.onprogress = function (data) {
+          document.getElementById("token").value = data.Token;
+          var element = document.getElementById("progress-bar");
+          element.style.width = data.Progress * 100 + "%"
+          element.innerText = Math.floor(data.Progress * 100) + "%";
+        }
+        instance.oncomplete = function (data) {
+          document.getElementById("progress").innerText = data.url;
+        }
+      }
+
+      instance.start(document.getElementById("token").value);
+    }
+
+    function stop() {
+      if (window["instance"] != null)
+        instance.stop();
+    }
+
+  </script>
+  <section id="progress">
+    <div class="box">
+      <div class="bar" id="progress-bar"></div>
+    </div>
+  </section>
+
+</body>
+</html>
