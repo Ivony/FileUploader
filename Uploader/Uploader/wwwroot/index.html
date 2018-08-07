@@ -50,10 +50,10 @@
 
 
         instance.onprogress = function (data) {
-          document.getElementById("token").value = data.Token;
+          document.getElementById("token").value = data.token;
           var element = document.getElementById("progress-bar");
-          element.style.width = data.Progress * 100 + "%"
-          element.innerText = Math.floor(data.Progress * 100) + "%";
+          element.style.width = data.progress * 100 + "%"
+          element.innerText = Math.floor(data.progress * 100) + "%";
         }
         instance.oncomplete = function (data) {
           document.getElementById("progress").innerText = data.url;

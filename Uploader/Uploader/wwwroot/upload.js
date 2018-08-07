@@ -1,6 +1,6 @@
 var uploader = /** @class */ (function () {
     function uploader(file) {
-        this.host = "/";
+        this.host = "/upload/";
         this.running = false;
         this.completed = false;
         this.file = file;
@@ -60,7 +60,7 @@ var uploader = /** @class */ (function () {
             return;
         var incomplete = data.incomplete;
         if (incomplete == null) {
-            if (data.IncompleteBlocks !== 0) {
+            if (data.incompleteBlocks !== 0) {
                 this.error(data);
                 return;
             }

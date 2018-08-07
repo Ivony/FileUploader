@@ -3,7 +3,7 @@
 class uploader {
 
 
-  private host = "/";
+  private host = "/upload/";
 
 
   public constructor(file: File) {
@@ -103,7 +103,7 @@ class uploader {
 
     if (incomplete == null) {
 
-      if (data.IncompleteBlocks !== 0) {
+      if (data.incompleteBlocks !== 0) {
         this.error(data);
         return;
       }
